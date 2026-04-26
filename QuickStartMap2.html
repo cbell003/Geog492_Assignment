@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <title>Rocky Mountain National Park Summits</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v3.20.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v3.20.0/mapbox-gl.css' rel='stylesheet' />
+    
+    <style>
+        
+      body {margin:0; padding:0; }
+
+      /* Style for map*/
+      #map {position:absolute; top:0; bottom:0; width: 100%; }
+
+      /* Style for title banner*/
+      #banner { z-index: 9999;
+              background-color: rgb(243, 236, 236);
+              opacity: 80%;
+              text-align:center
+            }
+
+    </style>
+    
+  </head>
+
+  <body>
+     
+      <div id="map"></div>
+
+        <!-- Adds a titled banner to the map --> 
+        <div id="banner">
+                  <h1> Summits in the Rocky Mountain National Park </h1>
+                
+      </div>
+      
+    <script>
+          mapboxgl.accessToken = "pk.eyJ1IjoiY2JlbGwwMyIsImEiOiJjbW5na3d5OWEwOXNxMnNwdW9hN3h6anBzIn0.AVLJ2P3FBcfoaTRYjPBLSA";
+   
+        
+          var map = new mapboxgl.Map({
+            container: 'map',
+            style:'mapbox://styles/cbell03/cmodcja7h000f01slhw5h7i7h', //stylesheet location
+            center:[-105.6824, 40.3186], //Initial center of the map
+            zoom:10.15 // Initial zoom level
+          })
+    
+          map.addControl(new mapboxgl.NavigationControl({
+            showCompass: false
+          }), 'bottom-left');  // Adds zoom controls to the bottom left of the map and removes the compass
+           
+    </script>
+
+  </body>
+
+</html>
