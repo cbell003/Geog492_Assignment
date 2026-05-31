@@ -220,10 +220,19 @@
             }
 
             if (record.image) {
-                var image = new Image();
-                image.src = record.image;
-                chapter.appendChild(image);
+                 var image = new Image();
+                 image.src = record.image;
+
+                if (record.imageSize === "small") {
+                image.style.width = "250px";
+                }
+                // Apply alt text if defined in the chapter
+              if (record.alt) {
+                 image.alt = record.alt;
+                } 
+         chapter.appendChild(image);
             }
+
 
             if (record.description) {
                 var story = document.createElement('p');
@@ -274,9 +283,7 @@
             interactive: false,
             projection: config.projection
         });
-         map.addControl(new mapboxgl.NavigationControl({
-            showCompass: false
-          }), 'bottom-left');  // Adds zoom controls to the bottom left of the map and removes the compass
+         
         // Create a inset map if enabled in config.js
         if (config.inset) {
             map.addControl(
