@@ -51,7 +51,7 @@ var config = {
             alignment: 'right',
             hidden: false,
             title: ' Important findings at the Paisley Caves',
-            description: 'Great Basin, because what has been found there challenges previous ideas of how and when people initially arrived into what is now North America. The main evidence found at Paisley Caves that show that people arrived earlier than expected, is found through coprolites and western stemmed projectile points. Before the discoveries found at the Paisley Caves, it was thought that clovis point technology was the first to arrive in North America, and that people arrived around 13,000 years ago through the Ice Free Corridor.  ',
+            description: 'The Paisley Caves are important to understanding the history of people and the paleoenvironment in the Great Basin, because what has been found there challenges previous ideas of how and when people initially arrived into what is now North America. The main evidence found at Paisley Caves that show that people arrived earlier than expected, is found through coprolites and western stemmed projectile points. Before the discoveries found at the Paisley Caves, it was thought that clovis point technology was the first to arrive in North America, and that people arrived around 13,000 years ago through the Ice Free Corridor.  ',
             location: {
                 center: [-120.5527, 42.7072],
                 zoom: 6.5,
