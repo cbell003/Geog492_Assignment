@@ -1,50 +1,37 @@
 var config = {
      style: 'mapbox://styles/mapbox/outdoors-v12',
-    // leave commented to use Mapbox Standard Style
     accessToken: 'pk.eyJ1IjoiY2JlbGwwMyIsImEiOiJjbXBtNGV4bWUxc3VjMnRvYm1zanZ6aGc2In0.ewRlz6_VacKVx_To1eYDOg',
+    // sets visbality of markers
     showMarkers: true,
+    // sets marker color
     markerColor: '#b63fce',
-    //projection: 'equirectangular',
-    //Read more about available projections here
-    //https://docs.mapbox.com/mapbox-gl-js/example/projections/
+    //sets the theme of the story map
     theme: 'dark',
-    auto: false,
     title: 'Paisley Caves In Depth',
     subtitle: 'How Paisley Caves has shaped what we know about people and the enviroment in the Pleistocene and Early Holocene.',
     byline: 'By Collin Bell',
     footer: 'Source:<br> Blong, J. C., Adams, M. E., Sanchez, G., Jenkins, D. L., Bull, I. D., & Shillito, L.-M 2020 	Younger Dryas and early holocene subsistence in the Northern Great Basin: Multiproxy Analysis of coprolites from the Paisley Caves, Oregon, USA. Archaeological and Anthropological Sciences, 12(9).<br> Jenkins, D. L., Davis, L. G., Stafford, T. W., Campos, P. F., Hockett, B., Jones, G. T., Cummings, L. S., Yost, C., Connolly, T. J., Yohe, R. M., Gibbons, S. C., Raghavan, M., Rasmussen, M., Paijmans, J. L. A., Hofreiter, M., Kemp, B. M., Barta, J. L., Monroe, C., Gilbert, M. T. P., & Willerslev, E. 2012	Clovis Age Western Stemmed Projectile Points and Human Coprolites at the Paisley Caves. Science (American Association for the Advancement of Science), 337(6091), 223–228.<br> Saban, C. V., Herring, E. M., Jenkins, D. L., & Gavin, D. G. 2023 Late glacial through Early Holocene environments inferred using pollen from coprolites and sediments recovered from Paisley Caves, Oregon. Quaternary Research, 116, 78–95.<br>  Shillito, L.-M., Whelton, H. L., Blong, J. C., Jenkins, D. L., Connolly, T. J., & Bull, I. D. 2020	Pre-Clovis occupation of the Americas identified by human fecal biomarkers in coprolites from Paisley Caves, Oregon. Science Advances, 6(29), Article 6404.<br> Smith, G. M., & Barker, P.  2017	The terminal pleistocene/early holocene record in the northwestern Great Basin: What we know, what we don’t know, and how we may be wrong. PaleoAmerica, 3(1),  13–47.  <br> Created using <a href="https://github.com/mapbox/storytelling" target="_blank">Mapbox Storytelling</a> template.',
+   // chapters for each section of the story map. 
     chapters: [
         {
-            id: 'slug-style-id',
-            alignment: 'left',
-            hidden: false,
+            id: 'first-identifier',
+            alignment: 'left', // alignment of text
+            hidden: false, // visablity of the chapter
             title: 'Paisley Caves',
             image: 'https://upload.wikimedia.org/wikipedia/commons/7/74/Great_Basin_map.gif',
             alt: 'Map of the Great Basin in the USA',
             description: ' Source: Kmusser, By <a href="//commons.wikimedia.org/wiki/User:Kmusser" title="User:Kmusser">Kmusser</a> at <a href="//commons.wikimedia.org/wiki/Main_Page" title="Main Page"> Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0" title="Creative Commons Attribution-Share Alike 3.0">CC BY-SA 3.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=117776104">Link</a> <br><br>  The Paisley Caves, located in Oregon and the Great Basin, are a significant archaeological site that has provided insight into the paleoenvironment of the Great Basin and human occupation during the Pleistocene and Early Holocene. ',
             location: {
-                center: [-120.5527, 42.7072],
-                pitch: 10,
-                zoom: 5.5,
-                bearing: 0,
+                center: [-120.5527, 42.7072], // marker location
+                pitch: 10, // angle of the view
+                zoom: 5.5, // zoom level
+                bearing: 0, // initial view starting point
                 
             },
             mapAnimation: 'flyTo',
-            rotateAnimation: false,
-            callback: '',
-            onChapterEnter: [
-                // {
-                //     layer: 'layer-name',
-                //     opacity: 1,
-                //     duration: 5000
-                // }
-            ],
-            onChapterExit: [
-                // {
-                //     layer: 'layer-name',
-                //     opacity: 0
-                // }
-            ]
+            rotateAnimation: false, // rotaion of the viewer
+            onChapterEnter: [ ], //chapter entrance actions
+            onChapterExit: [ ] // chapter exit actions
         },
         {
             id: 'second-identifier',
@@ -54,19 +41,13 @@ var config = {
             description: 'The Paisley Caves are important to understanding the history of people and the paleoenvironment in the Great Basin, because what has been found there challenges previous ideas of how and when people initially arrived into what is now North America. The main evidence found at Paisley Caves that show that people arrived earlier than expected, is found through coprolites and western stemmed projectile points. Before the discoveries found at the Paisley Caves, it was thought that clovis point technology was the first to arrive in North America, and that people arrived around 13,000 years ago through the Ice Free Corridor.  ',
             location: {
                 center: [-120.5527, 42.7072],
-                zoom: 6.5,
-                pitch: 60,
-                bearing: -53.2,
-                // flyTo additional controls-
-                // These options control the flight curve, making it move
-                // slowly and zoom out almost completely before starting
-                // to pan.
-                //speed: 2, // make the flying slow
-                //curve: 1, // change the speed at which it zooms out
+                zoom: 6.5, 
+                pitch: 60, 
+                bearing: -53.2, 
+    
             },
             mapAnimation: 'flyTo',
-            rotateAnimation: true,
-            callback: '',
+            rotateAnimation: true, 
             onChapterEnter: [],
             onChapterExit: []
         },
@@ -80,14 +61,13 @@ var config = {
             imageSize: 'small',
             description: 'Source: Thomas Brown,Daniel McGowan Gilmour, Paul S. Solimano, Kenneth Ames, <a rel="nofollow" class="external free" href="https://pdxscholar.library.pdx.edu/anth_fac/201/">https://pdxscholar.library.pdx.edu/anth_fac/201/</a> The Radiocarbon Record of the Western Stemmed Tradition on the Southern Columbia Plateau of Western North America, <a href="https://creativecommons.org/licenses/by/4.0" title="Creative Commons Attribution 4.0">CC BY 4.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=149052877">Link</a> <br><br>  Western Stemmed projectile points were an important find at the Paisley Caves because they helped to challenge previous assumptions about early human migration and technology in North America and the Great Basin. The projectile points found were relatively dated to about 11,070 and 11,340 radio carbon years which would make them as old or older than discovered Clovis technology. Due to the age of the Western Stemmed projectile points, it means that humans entered what is now North America before the Ice Free corridor was open. This means that people likely arrived and made their way through North America by moving along the Pacific Coast. The age of the Western Stemmed projectile points also means that Western Stemmed technology and Clovis technology developed independently from each other and are not connected.',
             location: {
-                center: [-120.5527, 42.7072],
-                zoom: 6.0,
-                pitch: 60,
-                bearing: -63.00
+                center: [-120.5527, 42.7072], 
+                zoom: 6.0, 
+                pitch: 60, 
+                bearing: -63.00 
             },
             mapAnimation: 'flyTo',
-            rotateAnimation: true,
-            callback: '',
+            rotateAnimation: true, 
             onChapterEnter: [],
             onChapterExit: []
         },
@@ -107,7 +87,6 @@ var config = {
             },
             mapAnimation: 'flyTo',
             rotateAnimation: true,
-            callback: '',
             onChapterEnter: [],
             onChapterExit: []
         },
@@ -127,7 +106,6 @@ var config = {
             },
             mapAnimation: 'flyTo',
             rotateAnimation: false,
-            callback: '',
             onChapterEnter: [],
             onChapterExit: []
         },
@@ -145,7 +123,6 @@ var config = {
             },
             mapAnimation: 'flyTo',
             rotateAnimation: false,
-            callback: '',
             onChapterEnter: [],
             onChapterExit: []
         }

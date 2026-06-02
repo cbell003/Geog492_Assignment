@@ -3,41 +3,41 @@
 
 <head>
     <meta charset='utf-8' />
-    <title>Mapbox Storytelling</title>
+    <title>Paisley Caves Final</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <link rel="icon" type="image/x-icon"
         href="https://raw.githubusercontent.com/mapbox/assembly/publisher-staging/src/svgs/mapbox.svg">
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.css' rel='stylesheet' />
-    <script src="https://cdn.jsdelivr.net/npm/mapbox-gl-globe-minimap@1.2.0/dist/bundle.js"></script>
     <script src="https://unpkg.com/scrollama"></script>
     <style>
+        /* body styling and font */
         body {
             margin: 0;
             padding: 0;
             font-family: sans-serif;
         }
-
+        /* link styling*/
         a,
         a:hover,
         a:visited {
             color: #0071bc;
         }
-
+        /* main map container styling*/
         #map {
             top: 0;
             height: 100vh;
             width: 100vw;
             position: fixed;
         }
-
+        /* header container styling*/
         #header {
             margin: auto;
             width: 100%;
             position: relative;
             z-index: 5;
         }
-
+        /* text in header styling*/
         #header h1,
         #header h2,
         #header p {
@@ -45,7 +45,7 @@
             padding: 2vh 2vw;
             text-align: center;
         }
-
+        /* footer container styling*/
         #footer {
             width: 100%;
             min-height: 5vh;
@@ -57,66 +57,66 @@
             position: relative;
             z-index: 5;
         }
-
+        /* container that holds all scrollable story sections */
         #features {
             padding-top: 10vh;
             padding-bottom: 10vh;
         }
-
+        /* allows for visually hidden elements*/
         .hidden {
             visibility: hidden;
         }
-
+        /* Centers chapter blocks */
         .centered {
             width: 50vw;
             margin: 0 auto;
         }
-
+        /* left aligned chapter styling*/
         .lefty {
             width: 33vw;
             margin-left: 5vw;
         }
-
+        /* right aligned chapter styling */
         .righty {
             width: 33vw;
             margin-left: 62vw;
         }
-
+        /* full width content block styling */
         .fully {
             width: 100%;
             margin: auto;
         }
-
+        /*light theme styling */
         .light {
             color: #444;
             background-color: #fafafa;
         }
-
+        /* dark theme styling */
         .dark {
             color: #fafafa;
             background-color: #444;
         }
-
+        /* scoll step size for each chapter block */
         .step {
             padding-bottom: 50vh;
             /* margin-bottom: 10vh; */
             opacity: 0.25;
         }
-
+        /* styling of active steps  */
         .step.active {
             opacity: 0.9;
         }
-
+        /* text container inside each step */
         .step div {
             padding: 25px 50px;
             line-height: 25px;
             font-size: 13px;
         }
-
+        /* images styling within each step. scales images to fit container width */
         .step img {
             width: 100%;
         }
-
+        /* adjusts layout for smaller screens*/
         @media (max-width: 750px) {
 
             .centered,
@@ -128,11 +128,6 @@
             }
         }
 
-        /* Fix issue on mobile browser where scroll breaks  */
-        .mapboxgl-canvas-container.mapboxgl-touch-zoom-rotate.mapboxgl-touch-drag-pan,
-        .mapboxgl-canvas-container.mapboxgl-touch-zoom-rotate.mapboxgl-touch-drag-pan .mapboxgl-canvas {
-            touch-action: unset;
-        }
     </style>
 </head>
 
@@ -141,19 +136,11 @@
     <div id="map"></div>
     <div id="story"></div>
 
-    <script src="./config.js"></script>
+    <script src="./config.js"></script> <!-- contains all chapter data and map setting-->
     <script>
-        var initLoad = true;
-        var layerTypes = {
-            'fill': ['fill-opacity'],
-            'line': ['line-opacity'],
-            'circle': ['circle-opacity', 'circle-stroke-opacity'],
-            'symbol': ['icon-opacity', 'text-opacity'],
-            'raster': ['raster-opacity'],
-            'fill-extrusion': ['fill-extrusion-opacity'],
-            'heatmap': ['heatmap-opacity']
-        }
+        var initLoad = true; // initial map load
 
+        // map alignment options
         var alignments = {
             'left': 'lefty',
             'center': 'centered',
@@ -161,68 +148,57 @@
             'full': 'fully'
         }
 
-        function getLayerPaintType(layer) {
-            var layerType = map.getLayer(layer).type;
-            return layerTypes[layerType];
-        }
-
-        function setLayerOpacity(layer) {
-            var paintProps = getLayerPaintType(layer.layer);
-            paintProps.forEach(function (prop) {
-                var options = {};
-                if (layer.duration) {
-                    var transitionProp = prop + "-transition";
-                    options = { "duration": layer.duration };
-                    map.setPaintProperty(layer.layer, transitionProp, options);
-                }
-                map.setPaintProperty(layer.layer, prop, layer.opacity, options);
-            });
-        }
-
-        var story = document.getElementById('story');
-        var features = document.createElement('div');
+        var story = document.getElementById('story'); //gets the main story container 
+        var features = document.createElement('div'); // creates a new div that will hold all chapter sections
         features.setAttribute('id', 'features');
 
-        var header = document.createElement('div');
+        var header = document.createElement('div'); // creates a header container
 
+        // adds the title from config
         if (config.title) {
             var titleText = document.createElement('h1');
             titleText.innerText = config.title;
             header.appendChild(titleText);
         }
 
+        // adds subtitiles from config
         if (config.subtitle) {
             var subtitleText = document.createElement('h2');
             subtitleText.innerText = config.subtitle;
             header.appendChild(subtitleText);
         }
 
+        // adds a byline if it exists from config
         if (config.byline) {
             var bylineText = document.createElement('p');
             bylineText.innerText = config.byline;
             header.appendChild(bylineText);
         }
 
+        // adds a header if it is in the Config
         if (header.innerText.length > 0) {
             header.classList.add(config.theme);
             header.setAttribute('id', 'header');
             story.appendChild(header);
         }
 
+        // loop through each chapter difined in config
         config.chapters.forEach((record, idx) => {
-            var container = document.createElement('div');
-            var chapter = document.createElement('div');
+            var container = document.createElement('div'); //creates container for the chapter
+            var chapter = document.createElement('div'); // creates chapter blocks
 
+            // if a chapter has a title, create and add it. 
             if (record.title) {
                 var title = document.createElement('h3');
                 title.innerText = record.title;
                 chapter.appendChild(title);
             }
 
+            // if a chapter has an image, it gets added.
             if (record.image) {
                  var image = new Image();
                  image.src = record.image;
-
+                // if the image size is classified as small, sets its size to 250px
                 if (record.imageSize === "small") {
                 image.style.width = "250px";
                 }
@@ -233,38 +209,46 @@
          chapter.appendChild(image);
             }
 
-
+            // if the chapter has a description, it gets added
             if (record.description) {
                 var story = document.createElement('p');
                 story.innerHTML = record.description;
                 chapter.appendChild(story);
             }
 
+            // sets container attributes and classes based on config and chapter settings
             container.setAttribute('id', record.id);
             container.classList.add('step');
             if (idx === 0) {
                 container.classList.add('active');
             }
 
+            // set container attributes and classes
             chapter.classList.add(config.theme);
             container.appendChild(chapter);
             container.classList.add(alignments[record.alignment] || 'centered');
+
+            // if the chapter is set to hidden in config, it will be hidden
             if (record.hidden) {
                 container.classList.add('hidden');
             }
             features.appendChild(container);
         });
 
+
         story.appendChild(features);
 
+        // creates footer container
         var footer = document.createElement('div');
 
+        // adds footer text if it exists in config
         if (config.footer) {
             var footerText = document.createElement('p');
             footerText.innerHTML = config.footer;
             footer.appendChild(footerText);
         }
 
+        // adds footer if there is text in the footer
         if (footer.innerText.length > 0) {
             footer.classList.add(config.theme);
             footer.setAttribute('id', 'footer');
@@ -273,6 +257,7 @@
 
         mapboxgl.accessToken = config.accessToken;
 
+        // Initializes the main mapbox map
         var map = new mapboxgl.Map({
             container: 'map',
             style: config.style,
@@ -283,15 +268,8 @@
             interactive: false,
             projection: config.projection
         });
-         
-        // Create a inset map if enabled in config.js
-        if (config.inset) {
-            map.addControl(
-                new GlobeMinimap({ ...config.insetOptions }),
-                config.insetPosition
-            );
-        }
-
+        
+        // adds marker if enabled in config
         if (config.showMarkers) {
             var marker = new mapboxgl.Marker({ color: config.markerColor });
             marker.setLngLat(config.chapters[0].location.center).addTo(map);
@@ -300,7 +278,7 @@
         // instantiate the scrollama
         var scroller = scrollama();
 
-
+        
         map.on("load", function () {
             if (config.use3dTerrain) {
                 map.addSource('mapbox-dem', {
@@ -331,6 +309,7 @@
                     offset: 0.5,
                     progress: true
                 })
+                // when a new step is entered do this
                 .onStepEnter(async response => {
                     var current_chapter = config.chapters.findIndex(chap => chap.id === response.element.id);
                     var chapter = config.chapters[current_chapter];
@@ -338,15 +317,19 @@
                     response.element.classList.add('active');
                     map[chapter.mapAnimation || 'flyTo'](chapter.location);
 
+                    // if markers are enabled in config, move the marker to the chapter location
                     if (config.showMarkers) {
                         marker.setLngLat(chapter.location.center);
                     }
+                    // sets thee opacity of any layers defined in the onchapterenter array for the chapter
                     if (chapter.onChapterEnter.length > 0) {
                         chapter.onChapterEnter.forEach(setLayerOpacity);
                     }
+                    // calls a chapter specific callback function if it is defined in the config
                     if (chapter.callback) {
                         window[chapter.callback]();
                     }
+                    // rotates the map 180 degrees if rotateAnimation is set to true for the chapter in config
                     if (chapter.rotateAnimation) {
                         map.once('moveend', () => {
                             const rotateNumber = map.getBearing();
@@ -357,6 +340,7 @@
                             });
                         });
                     }
+                    // if auto is set to true in config, scroll to the next chapter when the map movement ends
                     if (config.auto) {
                         var next_chapter = (current_chapter + 1) % config.chapters.length;
                         map.once('moveend', () => {
@@ -364,6 +348,7 @@
                         });
                     }
                 })
+                // sets the opacity of a layer. used for onChapterEnter and onChapterExit actions in config
                 .onStepExit(response => {
                     var chapter = config.chapters.find(chap => chap.id === response.element.id);
                     response.element.classList.remove('active');
@@ -372,7 +357,7 @@
                     }
                 });
 
-
+            // auto start at chapter 0 if auto is set to true in config
             if (config.auto) {
                 document.querySelectorAll('[data-scrollama-index="0"]')[0].scrollIntoView();
             }
